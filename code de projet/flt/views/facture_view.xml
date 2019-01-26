@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+<!--
+<record id='facture_vehicles_model_view_tree' model='ir.ui.view'>
+            <field name="name">facture.view.tree</field>
+            <field name="model">facture.vehicles</field>
+            <field name="arch" type="xml">
+                <tree string="Models">
+
+                    <field name="contract_id" string="Numéro dossier" />
+                    <field name="vehicle_id" string="véhicule"/>
+                    <field name="client" />
+					 <field name="cin" />
+                    <field name="date_facture"/>
+
+
+                </tree>
+            </field>
+        </record>
+-->
+      <record id='facture_view_form' model='ir.ui.view'>
+            <field name="name">facture.view.form</field>
+            <field name="model">account.invoice</field>
+          <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                 <field name="partner_id" position="before">
+                     <field name="contract_id" string="Numéro dossier"/>
+
+                 </field>
+                <field name="partner_id" position="attributes">
+                        <attribute name="string">client</attribute>
+                    </field>
+
+
+
+                <field name="name" position="attributes">
+                        <attribute name="string">numero de dossier</attribute>
+                    </field>
+                    <field name="product_id" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </field>
+
+                <field name="name" position="after">
+                    <field name="vehicle_id" string="véhicule"/>
+                    <field name="client" string="client"/>
+                    <field name="cin" />
+                    </field>
+                    <field name="quantity" position="before">
+                    <field name="caution"/>
+                </field>
+
+                    <field name="price_unit" position="attributes">
+                        <attribute name="string">prix de jour</attribute>
+                    </field>
+                <field name="quantity" position="attributes">
+                        <attribute name="string">nombre de jour</attribute>
+                    </field>
+
+
+
+
+
+
+               <field name="reference" position="replace"/>
+<!--
+                <field name="product_id" position="replace">
+                    <field name="vehicle_id" string="véhicule"/>
+                </field>
+                <field name="name" position="replace">
+                    <field name="client" />
+                </field>
+                <field name="account_id" position="replace">
+                    <field name="cin" />
+                </field>
+                <field name="quantity" position="replace">
+                    <field name="caution"/>
+                </field>
+                <field name="price_unit" position="replace">
+                    <field name="prix_jour"/>
+                </field>
+                <field name="invoice_line_tax_ids" position="replace">
+                    <field name="nb_jour"/>
+                </field>
+                <field name="price_subtotal" position="replace">
+                    <field name="total_prix"/>
+                </field>
+-->
+            </field>
+        </record>
+
+    <record id='facture_vehicle_action' model='ir.actions.act_window'>
+            <field name="name">Facture</field>
+            <field name="res_model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,kanban,form</field>
+
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click pour saisir un nouveau facture.
+              </p><p>
+
+              </p>
+            </field>
+        </record>
+
+
+      <template id="report_facture_voiture" inherit_id="account.report_invoice_document">
+            <xpath expr="//table[@class='table table-condensed']//thead//tr" position="replace">
+                 <tr style="background-color:lightgray;">
+                        <th>véhicule</th>
+                        <th>numero dossier</th>
+                        <th class="hidden">Source Document</th>
+                        <th class="text-right">nombre de jours</th>
+                        <th class="text-right">prix de jour</th>
+                        <th t-if="display_discount" class="text-right">Disc.(%)</th>
+                        <th class="text-right">Taxes</th>
+                        <th class="text-right">prixHT</th>
+                  </tr>
+            </xpath>
+            <xpath expr="//tbody[@class='invoice_tbody']//tr//td[1]" position="before">
+
+                            <td class="text-right">
+                            <span t-field="l.vehicle_id"/>
+                            </td>
+
+            </xpath>
+      </template>
+
+ <menuitem name="facture" id="flt.facture_contract" parent="flt.rapport"
+              action="facture_vehicle_action"/>
+
+      </data>
+</odoo>

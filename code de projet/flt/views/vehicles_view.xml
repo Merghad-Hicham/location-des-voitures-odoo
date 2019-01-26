@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+  
+  
+      <record id='locationnn_vehicles_view_form' model='ir.ui.view'>
+            <field name="name">location.view.form</field>
+            <field name="model">fleet.vehicle</field>
+			<field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <button name="return_action_to_open" position="replace">
+                <button name="return_action_to_open"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                context="{'xml_id':'action_vehicles_rental_contract'}"
+                                help="show the contract for this vehicle">
+                                <field name="contract_count" widget="statinfo" string="Contracts"/>
+                            </button>
+                </button>
+
+                <field name="color" position="after">
+				<field name="Loueur" string="certificat d'immatriculation"/>
+                    <field name="cart_img" widget='image' class="oe_avatar" string=" copie de certificat d'immatriculation"/>
+
+
+
+
+		        </field>
+
+
+            </field>
+        </record>
+
+        <record id='location_model_view_tree' model='ir.ui.view'>
+            <field name="name">location.view.tree</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="arch" type="xml">
+                <tree string="Models">
+                    
+                </tree>
+            </field>
+        </record>
+
+
+     <record id='location_vehicle_rent_action' model='ir.actions.act_window'>
+            <field name="name">vehicles</field>
+            <field name="res_model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click pour saisir un nouveau véhicule .
+              </p><p>
+
+              </p>
+            </field>
+        </record>
+  
+  <menuitem name="vehicule" id="flt.vehicles" parent="flt.contract"
+              action="location_vehicle_rent_action"/>
+  
+  
+  </data>
+</odoo>

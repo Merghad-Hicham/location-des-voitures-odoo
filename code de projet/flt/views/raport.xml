@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+         <!-- Export XLS Report For Fleet Rental Vehicle History Report -->
+         <report
+             id="CarRentalContract"
+             model="vehicles.rent.contract"
+             string=" print contract"
+             report_type="qweb-pdf"
+             name="vehicles.rent.contract.render_html"
+             file="vehicles.rent.contract.render_html"
+             attachment_use="True"
+			 />
+        <report
+             id="rapport_sortie_report"
+             model="rapport.sorter.vehicles"
+             string=" print rapport_sortie"
+             report_type="qweb-pdf"
+             name="rapport_sortie"
+             file="rapport_sortie"
+             attachment_use="True"
+			 />
+          <report
+             id="rapport_return_report"
+             model="rapport.retoure.vehicles"
+             string=" print rapport_return"
+             report_type="qweb-pdf"
+             name="rapport_return"
+             file="rapport_return"
+             attachment_use="True"
+			 />
+
+
+    </data>
+</odoo>

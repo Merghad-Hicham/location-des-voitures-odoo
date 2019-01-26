@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="client_tree_view">
+            <field name="name">client_tree_view.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree>
+
+				       <field name="cin" string="CIN"/>
+
+                        <field name="date_nais"/>
+                        <field name="ahead"/>
+
+
+
+
+                </tree>
+            </field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new contract.
+              </p><p>
+                Odoo will warn you when services or contract have to be
+                renewed.
+              </p>
+            </field>
+        </record>
+        <!-- Add instructor field to existing view -->
+        <record model="ir.ui.view" id="partner_instructor_form_view">
+            <field name="name">partner.instructor</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            <field name="website" position="after">
+
+                            <field name="ahead" string="Permis de conduire" attrs="{'invisible': [('is_company', '=', True)],'required': [('is_company', '=', False)]}"/>
+                              <field name="pirmis_img" string="copie de permis" widget='image' class="oe_avatar" attrs="{'invisible': [('is_company', '=', True)],'required': [('is_company', '=', False)]}"/>
+
+                            <field name="cin" string="CIN" attrs="{'invisible': [('is_company', '=', True)],'required': [('is_company', '=', False)]}"/>
+                            <field name="cin_img"  string="copie de CIN" widget='image' class="oe_avatar" attrs="{'invisible': [('is_company', '=', True)],'required': [('is_company', '=', False)]}"/>
+						  <field name="date_nais" string="Date de naissance" attrs="{'invisible': [('is_company', '=', True)]}"/>
+
+                        
+            </field>
+             <field name="website" position="replace"/>
+            <field name="category_id" position="replace"/>
+            <field name="lang" position="replace"/>
+            <field name="property_account_receivable_id" position="replace"/>
+            <field name="property_account_payable_id" position="replace"/>
+
+            </field>
+        </record>
+
+        <!-- ..................................... -->
+
+                <record id='fleet_client_view_kanban' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                 <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('res.partner', 'image_small', record.id.value)"/>
+                                </div>
+
+
+                                <div class="o_kanban_content">
+                                    <div>
+                                        <h2>
+                                            <a  type="open">
+                                                <field name="name" />
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <ul>
+                                        <li><field name="mobile" /> </li>
+                                    </ul>
+                                </div>
+
+                                <div class="oe_kanban_details">
+
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- ....................................... -->
+
+        <record model="ir.actions.act_window" id="contact_list_action">
+            <field name="name">Client</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+         <menuitem name="contract" id="flt.contract" parent="flt.menu_root" />
+      <menuitem name="cont" id="flt.cont" parent="flt.menu_root" sequence="0"/>
+        <menuitem id="client_menu" name="client"
+                  parent="flt.contract"
+                  action="contact_list_action"/>
+    </data>
+</odoo>

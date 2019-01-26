@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+<record id='rapport_sorter_vehicles_model_view_tree' model='ir.ui.view'>
+            <field name="name">rapport.sorter.vehicles.view.tree</field>
+            <field name="model">rapport.sorter.vehicles</field>
+            <field name="arch" type="xml">
+                <tree string="Models">
+				<field name="contract_id" string="numéro dossier" />
+                    <field name="client" />
+                    <field name="cin" />
+                     <field name="vehicle_id" string="véhicule"/>
+                    <field name="date_livrer" string="date livré "/>
+
+                    <field name="lieu_livraition"/>
+                    <!-- <field name="vehicle_id" />
+                    <field name="Loueur" string="Renter" /> -->
+                    <field name="etat"/>
+                </tree>
+            </field>
+        </record>
+
+    	<record id='rapport_sorter_view_form' model='ir.ui.view'>
+            <field name="name">rapport.sorter.view.form</field>
+            <field name="model">rapport.sorter.vehicles</field>
+            <field name="arch" type="xml">
+                <form string="Rapport Vehicles">
+                    <header>
+
+
+
+                    </header>
+                    <sheet>
+                      <group>
+                     <group>
+                         <separator string="General Properties" colspan="2" />
+					 <field name="contract_id" string="numéro de dossier"  domain="[('rapport_crr','=','n')]"/>
+                         <field name="client" />
+                         <field name="cin" />
+                         <field name="vehicle_id" string="véhicule"/>
+                          <field name="matricule" />
+                         <field name="killim_livrer" string="odométre "/>
+                         <field name="date_livrer" string="date livré "/>
+
+                         <field name="lieu_livraition"/>
+
+                    <!--<field name="vehicle_id" />
+
+                    <field name="Loueur" /> -->
+                    <field name="etat"/>
+                     </group>
+                            <group>
+                             <separator string="Documents" colspan="2" />
+                         <field name="vignette"/>
+                         <field name="carte_grise"/>
+                         <field name="carnet_entretien"/>
+                         <field name="autoris_circulation"/>
+                         <field name="visite"/>
+                         <field name="att_assurance"/>
+                                <separator string="Etat des pneus " colspan="2" />
+                                <field name="nb_enjoliveurs"/>
+                                <field name="roue_de_secours"/>
+                         </group>
+
+                        <group>
+                            <separator string="Outillage" colspan="2" />
+                              <field name="triangles"/>
+                              <field name="jou_tapis"/>
+                              <field name="cric"/>
+                              <field name="kit_anti"/>
+                              <field name="manivelle"/>
+                         </group>
+
+                         <group>
+                             <separator string="Equipements " colspan="2" />
+                         <field name="antenne"/>
+                         <field name="allume"/>
+                         <field name="goblet"/>
+                         <field name="proprete"/>
+
+                         </group>
+                     <group col="12" string="Images de véhicule">
+                           <field name="image1" widget='image' class="oe_avatar" />
+                           <field name="image2" widget='image' class="oe_avatar" string="image 2"/>
+						   <field name="image3" widget='image' class="oe_avatar" string="image 3"/>
+
+                        </group>
+
+                   <separator string="Description "/>
+                  <field name = "notes" placeholder = "Write here any other information"/>
+                        </group>
+                      <!--  <group col="2" string="Images of vehicles">
+                           <field name="image1" widget='image' class="oe_avatar" />
+                           <field name="image2" widget='image' class="oe_avatar" string="image 2"/>
+						   <field name="image3" widget='image' class="oe_avatar" string="image 3"/>
+						   <field name = "notes" placeholder = "Write here any other information" string="Description" />
+                        </group>-->
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+      <record id='fleet_rapport_sorti_view_kanban' model='ir.ui.view'>
+            <field name="name">rapport.sorter.vehicle.kanban</field>
+            <field name="model">rapport.sorter.vehicles</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                 <div class="o_kanban_image">
+
+                                </div>
+
+
+                                <div class="o_kanban_content">
+                                    <div>
+                                        <h2>
+                                            <a  type="open">
+                                                <field name="contract_id" />
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <ul>
+                                        <li><field name="client" /> </li>
+                                    </ul>
+                                </div>
+
+                                <div class="oe_kanban_details">
+
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+     <record id='rappot_sorter_vehicle_action' model='ir.actions.act_window'>
+            <field name="name">Rapport de livraison</field>
+            <field name="res_model">rapport.sorter.vehicles</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click pour saisir un nouveau rapport de livraision
+             </p><p>
+
+              </p>
+            </field>
+        </record>
+		
+		
+		<menuitem name="Rapport" id="flt.rapport" parent="flt.menu_root"/>
+    
+    
+    <menuitem name="rapport de livraison" id="flt.rapport_sortie" parent="flt.rapport"
+              action="rappot_sorter_vehicle_action"/>
+</data>
+</odoo>	
